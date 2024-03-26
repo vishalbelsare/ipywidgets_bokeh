@@ -6,13 +6,13 @@
 #-----------------------------------------------------------------------------
 
 from bokeh.core.properties import Any, String
-from bokeh.models.layouts import HTMLBox
+from bokeh.models.layouts import LayoutDOM
 
 from ipywidgets import embed, Widget
 
 from .kernel import kernel
 
-class IPyWidget(HTMLBox):
+class IPyWidget(LayoutDOM):
     """Wrap an IPyWidget for embedding in a bokeh app.
 
     Parameters
@@ -35,6 +35,7 @@ class IPyWidget(HTMLBox):
     def __init__(self, *, widget: Widget, **kwargs):
         super().__init__(**kwargs)
         spec = widget.get_view_spec()
-        state = Widget.get_manager_state(widgets=[])
-        state["state"] = embed.dependency_state([widget], drop_defaults=True)
+        state = Widget.get_manager_state(widgets=[widget])
+        state["full_state"] = state["state"]
+        state["state"] = embed.dependency_state([widget], drop_defaults=False)
         self.bundle = dict(spec=spec, state=state)

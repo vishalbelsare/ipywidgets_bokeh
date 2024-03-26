@@ -25,15 +25,24 @@ class BuildJS(Command):
             os.chdir("..")
 
 install_requires = [
-    "bokeh >=2.4.0,<2.5",
-    "ipywidgets >=7.5.0",
+    "bokeh ==3.*", # TODO 3.2.dev1
+    "ipywidgets ==8.*",
+    "ipykernel ==6.*,!=6.18.0", # until ipywidgets 8.0.6
+]
+dev_dependencies = [
+    "anywidget>=0.3.0",
+    "panel>=1.0.4",
+    "pytest>=7.3.1",
+    "pytest-cov>=4.1.0",
+    "pytest-playwright>=0.3.3",
 ]
 
 setup_args = dict(
     name="ipywidgets_bokeh",
-    version="1.3.0",
+    version="1.6.0",
     install_requires=install_requires,
-    python_requires=">=3.7",
+    extras_require={"dev": dev_dependencies},
+    python_requires=">=3.9",
     description="Allows embedding of Jupyter widgets in Bokeh layouts.",
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",
@@ -45,9 +54,9 @@ setup_args = dict(
     classifiers=[
         "License :: OSI Approved :: BSD License",
         "Development Status :: 5 - Production/Stable",
-        "Programming Language :: Python :: 3.6",
-        "Programming Language :: Python :: 3.7",
-        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
         "Operating System :: OS Independent",
         "Intended Audience :: Science/Research",
         "Intended Audience :: Developers",

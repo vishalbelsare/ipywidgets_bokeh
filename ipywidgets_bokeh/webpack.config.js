@@ -2,7 +2,7 @@ const path = require("path");
 const version = require('./package.json').version;
 
 const rules = [
-  { test: /\.css$/, use: ["style-loader", "css-loader"]},
+  { test: /\.css$/, use: ["style-loader", "css-loader"] },
   // required to load font-awesome
   { test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/, use: "url-loader?limit=10000&mimetype=application/font-woff" },
   { test: /\.woff(\?v=\d+\.\d+\.\d+)?$/, use: "url-loader?limit=10000&mimetype=application/font-woff" },
@@ -34,7 +34,7 @@ module.exports = (env={}, argv={}) => {
       }
     ],
     module: {rules},
-    devtool: false,
+    devtool: minimize ? false : "source-map",
     mode,
     optimization: {minimize},
   }
